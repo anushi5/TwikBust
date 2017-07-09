@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "362594562988",
+    "firebase_url": "https://twikbust2.firebaseio.com",
+    "project_id": "twikbust2",
+    "storage_bucket": "twikbust2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362594562988:android:3d132086ab6b35bc",
+        "android_client_info": {
+          "package_name": "com.example.anushi.twikbust"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362594562988-o48ucdcqglsvvbumiqqb3a7mk1kt9ia5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anushi.twikbust",
+            "certificate_hash": "5da8026366253469a600c6ce2fe3b419c7940d88"
+          }
+        },
+        {
+          "client_id": "362594562988-9a847eklj3r6qc480khv1psbpkcgrp5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6SqkCYppN1DW2qeU3ETlnneTXtkt7yRk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362594562988-9a847eklj3r6qc480khv1psbpkcgrp5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

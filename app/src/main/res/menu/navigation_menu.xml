@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/myacc"
+        android:title="@string/profile"
+        android:icon="@drawable/profile">
+    </item>
+
+    <item
+        android:id="@+id/pics"
+        android:title="@string/photos"
+        android:icon="@drawable/photos">
+
+    </item>
+
+    <item
+        android:id="@+id/movies"
+        android:title="@string/movies"
+        android:icon="@drawable/movies">
+
+    </item>
+
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        android:icon="@drawable/settings">
+
+    </item>
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout"
+        android:icon="@drawable/logout">
+
+    </item>
+
+    <item
+        android:id="@+id/about_us"
+        android:title="@string/about_us"
+        android:icon="@drawable/about_us">
+    </item>
+
+</menu>
