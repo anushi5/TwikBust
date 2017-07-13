@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "362594562988-5i2673ahu6o6mgdgjeism93oa76trau3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anushi.twikbust",
+            "certificate_hash": "ea98464509de9962a6118a155de2126c2c37ed9d"
+          }
+        },
+        {
           "client_id": "362594562988-o48ucdcqglsvvbumiqqb3a7mk1kt9ia5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

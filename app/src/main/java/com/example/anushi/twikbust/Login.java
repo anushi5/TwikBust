@@ -47,6 +47,8 @@ import java.net.URL;
 import java.util.Date;
 
 
+
+
 public class Login extends AppCompatActivity {
 
     EditText etName;
@@ -63,10 +65,13 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         etName=(EditText)findViewById(R.id.etName);
         etEmail=(EditText)findViewById(R.id.etEmail);
@@ -75,7 +80,6 @@ public class Login extends AppCompatActivity {
         ivUserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 CheckUserPermsions();
             }
         });
@@ -91,10 +95,10 @@ public class Login extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                   // Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
 
             }
@@ -139,7 +143,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    int RESULT_LOAD_IMAGE=346;
+    int RESULT_LOAD_IMAGE=34;
     void LoadImage(){
         Intent i = new Intent(
                 Intent.ACTION_PICK,
@@ -221,7 +225,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                String downloadUrl = taskSnapshot.getDownloadUrl().toString();
+                @SuppressWarnings("VisibleForTests")  String downloadUrl = taskSnapshot.getDownloadUrl().toString();
+
+                ///Tushar changes error detection
+               /* @SuppressWarnings("VisibleForTests") Uri downloadUr = taskSnapshot.getDownloadUrl();
+                //and you can convert it to string like this:
+                String  downloadUrl= downloadUr.toString();*/
                 String name="";
                 try {
                     //for space with name
@@ -260,19 +269,20 @@ public class Login extends AppCompatActivity {
         }
         hideProgressDialog();
     }
+
     private void signInAnonymously() {
         // [START signin_anonymously]
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
+                        //Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInAnonymously", task.getException());
+                            //Log.w(TAG, "signInAnonymously", task.getException());
 
                         }
 
@@ -325,7 +335,7 @@ public class Login extends AppCompatActivity {
                     return;
                 if (json.getString("msg").equalsIgnoreCase("user is added")) {
                     Toast.makeText(getApplicationContext(), json.getString("msg"), Toast.LENGTH_LONG).show();
-//login
+                     //login
                     String url="https://tusharsk26.000webhostapp.com/TwikBust/login.php?email="+etEmail.getText().toString()+"&password="+etPassword.getText().toString() ;
 
                     new MyAsyncTaskgetNews().execute(url);
@@ -342,7 +352,7 @@ public class Login extends AppCompatActivity {
                 }
 
             } catch (Exception ex) {
-                Log.d("er",  ex.getMessage());
+                //Log.d("er",  ex.getMessage());
             }
 
 
