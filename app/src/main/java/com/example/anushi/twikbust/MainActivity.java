@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtnamefollowers;
     int SelectedUserID = 0;
     Button buFollow;
-    MyCustomAdapter myadapter;
+    //MyCustomAdapter myadapter;
 
     DrawerLayout mdrawerlayout;
     ActionBarDrawerToggle mtoggle;
@@ -77,8 +77,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);}}
 
-        SaveSettings saveSettings = new SaveSettings(getApplicationContext());
+       /* SaveSettings saveSettings = new SaveSettings(getApplicationContext());
         saveSettings.LoadData();
         setContentView(R.layout.activity_main);
 
@@ -201,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-*/
+
     private class MyCustomAdapter extends BaseAdapter {
         public ArrayList<AdapterItems> listnewsDataAdpater;
         Context context;
@@ -255,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView txtUserName = (TextView) myView.findViewById(R.id.txtUserName);
                 txtUserName.setText(s.first_name);
-                /*txtUserName.setOnClickListener(new View.OnClickListener() {
+                txtUserName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         SelectedUserID = Integer.parseInt(s.user_id);
@@ -267,8 +268,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                     }
-                });*/
-                TextView txt_tweet = (TextView) myView.findViewById(R.id.txt_tweet);
+                });
+
                 txt_tweet.setText(s.tweet_text);
 
                 TextView txt_tweet_date = (TextView) myView.findViewById(R.id.txt_tweet_date);
@@ -375,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-*/
+
     // get news from server
     public class MyAsyncTaskgetNews extends AsyncTask<String, String, String> {
         @Override
@@ -559,8 +560,5 @@ public class MainActivity extends AppCompatActivity {
         isFront=1;
     }
 
-
-
-
-
 }
+*/

@@ -8,4 +8,10 @@
     <string name="about_us">About Us</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="title_activity_navigation_bar">NavigationBar</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
