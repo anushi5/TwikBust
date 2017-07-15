@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mdrawerlayout;
     ActionBarDrawerToggle mtoggle;
     Toolbar mtoolbar;
-
+    int isFront=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
         SaveSettings saveSettings = new SaveSettings(getApplicationContext());
         saveSettings.LoadData();
         setContentView(R.layout.activity_main);
+
+        if(!saveSettings.UserPresent())
+        {
+            finish();
+        }
+
 
 
         //mdrawerlayout=(DrawerLayout) findViewById(R.id.dl);
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        listnewsData.add(new AdapterItems(null,null,null,"add",null,null,null));
+        listnewsData.add(new AdapterItems(null,null,null,"add",null,saveSettings.user_name,saveSettings.dp_picture_path));
 
         myadapter = new MyCustomAdapter(this, listnewsData);
         ListView lsNews=(ListView)findViewById(R.id.LVNews);
@@ -229,8 +235,8 @@ public class MainActivity extends AppCompatActivity {
             if (s.tweet_date.equals("add")) {
                 LayoutInflater mInflater = getLayoutInflater();
                 View myView = mInflater.inflate(R.layout.addstatus, null);
-
-
+                ImageView picture_path = (ImageView) myView.findViewById(R.id.ivmydp);
+                Picasso.with(context).load(s.picture_path).into(picture_path);
                 return myView;
             }
             else if (s.tweet_date.equals("loading")) {
@@ -512,19 +518,21 @@ public class MainActivity extends AppCompatActivity {
         ///https://tusharsk26.000webhostapp.com/TwikBust/TweetsList.php
 
 
-        String url="https://tusharsk26.000webhostapp.com/TwikBust/TweetsList.php?user_id="+ SaveSettings.UserID + "&StartFrom="+StartFrom + "&op="+ UserOperation;
-        //Toast.makeText(getApplicationContext(),url,Toast.LENGTH_SHORT).show();
-        if (UserOperation==SearchType.SearchIn)
-            url="https://tusharsk26.000webhostapp.com/TwikBust/TweetsList.php?user_id="+ SaveSettings.UserID + "&StartFrom="+StartFrom + "&op="+ UserOperation + "&query="+ Searchquery;
-        if(UserOperation==SearchType.OnePerson)
-            url="https://tusharsk26.000webhostapp.com/TwikBust/TweetsList.php?user_id="+ SelectedUserID + "&StartFrom="+StartFrom + "&op="+ UserOperation;
+        if(isFront==1) {
+            String url = "https://tusharsk26.000webhostapp.com/TwikBust/TweetsList.php?user_id=" + SaveSettings.UserID + "&StartFrom=" + StartFrom + "&op=" + UserOperation;
+            //Toast.makeText(getApplicationContext(),url,Toast.LENGTH_SHORT).show();
+            if (UserOperation == SearchType.SearchIn)
+                url = "https://tusharsk26.000webhostapp.com/TwikBust/TweetsList.php?user_id=" + SaveSettings.UserID + "&StartFrom=" + StartFrom + "&op=" + UserOperation + "&query=" + Searchquery;
+            if (UserOperation == SearchType.OnePerson)
+                url = "https://tusharsk26.000webhostapp.com/TwikBust/TweetsList.php?user_id=" + SelectedUserID + "&StartFrom=" + StartFrom + "&op=" + UserOperation;
 
-        new  MyAsyncTaskgetNews().execute(url);
+            new MyAsyncTaskgetNews().execute(url);
 
-        if (UserOperation==SearchType.OnePerson)
-            ChannelInfo.setVisibility(View.VISIBLE);
-        else
-            ChannelInfo.setVisibility(View.GONE);
+            if (UserOperation == SearchType.OnePerson)
+                ChannelInfo.setVisibility(View.VISIBLE);
+            else
+                ChannelInfo.setVisibility(View.GONE);
+        }
 
 
     }
@@ -534,7 +542,23 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onResume();
         LoadTweets(0,SearchType.MyFollowing);
+        isFront=1;
     }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        isFront=0;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        isFront=1;
+    }
+
 
 
 

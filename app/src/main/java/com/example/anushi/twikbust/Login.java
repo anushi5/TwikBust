@@ -55,121 +55,22 @@ public class Login extends AppCompatActivity {
     EditText etEmail;
     EditText etPassword;
     ImageView ivUserImage;
-    private static final String TAG = "AnonymousAuth";
 
-    // [START declare_auth]
-    private FirebaseAuth mAuth;
-    // [END declare_auth]
-
-    // [START declare_auth_listener]
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
-
-
-
+    String email;
+    String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
 
-        etName=(EditText)findViewById(R.id.etName);
-        etEmail=(EditText)findViewById(R.id.etEmail);
-        etPassword=(EditText)findViewById(R.id.etPassword);
-        ivUserImage=(ImageView) findViewById(R.id.ivUserImage);
-        ivUserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CheckUserPermsions();
-            }
-        });
 
+        etEmail=(EditText)findViewById(R.id.et_email);
+        etPassword=(EditText)findViewById(R.id.et_password);
 
-        mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
-
-        // [START auth_state_listener]
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    //Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                   // Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-
-            }
-        };
 
     }
 
-
-    void CheckUserPermsions(){
-        if ( Build.VERSION.SDK_INT >= 23){
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) !=
-                    PackageManager.PERMISSION_GRANTED  ){
-                requestPermissions(new String[]{
-                                android.Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_ASK_PERMISSIONS);
-                return ;
-            }
-        }
-
-        LoadImage();// init the contact list
-
-    }
-    //get acces to location permsion
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_ASK_PERMISSIONS:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    LoadImage();// init the contact list
-                } else {
-                    // Permission Denied
-                    Toast.makeText( this,"your message" , Toast.LENGTH_SHORT)
-                            .show();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    int RESULT_LOAD_IMAGE=34;
-    void LoadImage(){
-        Intent i = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        startActivityForResult(i, RESULT_LOAD_IMAGE);
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            ivUserImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
-        }
-    }
 
 
 
@@ -195,68 +96,33 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public void buLogin(View view) {
-        showProgressDialog();
-        FirebaseStorage storage=FirebaseStorage.getInstance();
-        // Create a storage reference from our app
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://twikbust2.appspot.com");
-        java.text.DateFormat df = new java.text.SimpleDateFormat("ddMMyyHHmmss");
-        Date dateobj = new Date();
-        // System.out.println(df.format(dateobj));
-// Create a reference to "mountains.jpg"
-        final String ImagePath= df.format(dateobj) +".jpg";
-        StorageReference mountainsRef = storageRef.child("images/"+ ImagePath);
-        ivUserImage.setDrawingCacheEnabled(true);
-        ivUserImage.buildDrawingCache();
-        // Bitmap bitmap = imageView.getDrawingCache();
-        BitmapDrawable drawable=(BitmapDrawable)ivUserImage.getDrawable();
-        Bitmap bitmap =drawable.getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
+    public void login(View view) {
 
-        UploadTask uploadTask = mountainsRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                @SuppressWarnings("VisibleForTests")  String downloadUrl = taskSnapshot.getDownloadUrl().toString();
+        email=etEmail.getText().toString();
+        password=etPassword.getText().toString();
+        if(!email.matches("")&&!password.matches(""))
+        {
+            String url="https://tusharsk26.000webhostapp.com/TwikBust/login.php?email="+email+"&password="+password;
+            new MyAsyncTaskgetNews().execute(url);
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"PLEASE ENTER THE DETAILS",Toast.LENGTH_SHORT).show();
+        }
 
-                ///Tushar changes error detection
-               /* @SuppressWarnings("VisibleForTests") Uri downloadUr = taskSnapshot.getDownloadUrl();
-                //and you can convert it to string like this:
-                String  downloadUrl= downloadUr.toString();*/
-                String name="";
-                try {
-                    //for space with name
-                    name = java.net.URLEncoder.encode( etName.getText().toString() , "UTF-8");
-                    downloadUrl= java.net.URLEncoder.encode(downloadUrl , "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-
-                }
-                //TODO:  login and register
-
-                String url="https://tusharsk26.000webhostapp.com/TwikBust/Register.php?user_name="+name+"&email="+etEmail.getText().toString()+"&password="+etPassword.getText().toString()+"&picture_path="+ downloadUrl;
-
-                new MyAsyncTaskgetNews().execute(url);
-                //hideProgressDialog();
-
-            }
-        });
     }
 
+    public void register(View view) {
+        Intent i= new Intent(Login.this,SignUp.class);
+        startActivity(i);
+        finish();
+    }
 
     // [START on_start_add_listener]
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-        signInAnonymously();
+
     }
     // [END on_start_add_listener]
 
@@ -264,32 +130,10 @@ public class Login extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-        hideProgressDialog();
+
     }
 
-    private void signInAnonymously() {
-        // [START signin_anonymously]
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            //Log.w(TAG, "signInAnonymously", task.getException());
-
-                        }
-
-                    }
-                });
-        // [END signin_anonymously]
-    }
 
 
     // get news from server
@@ -333,22 +177,38 @@ public class Login extends AppCompatActivity {
                 //display response data
                 if (json.getString("msg")==null)
                     return;
-                if (json.getString("msg").equalsIgnoreCase("user is added")) {
+                if (json.getString("msg").equalsIgnoreCase("Pass Login")) {
                     Toast.makeText(getApplicationContext(), json.getString("msg"), Toast.LENGTH_LONG).show();
                      //login
-                    String url="https://tusharsk26.000webhostapp.com/TwikBust/login.php?email="+etEmail.getText().toString()+"&password="+etPassword.getText().toString() ;
 
-                    new MyAsyncTaskgetNews().execute(url);
+                    JSONArray UserInfo=new JSONArray( json.getString("info"));
+                    JSONObject UserCreintal= UserInfo.getJSONObject(0);
+                    //Toast.makeText(getApplicationContext(),UserCreintal.getString("user_id"),Toast.LENGTH_LONG).show();
+                    hideProgressDialog();
+
+                    /// adding data inside shared prefrences
+                    SaveSettings saveSettings= new SaveSettings(getApplicationContext());
+                    saveSettings.SaveData(UserCreintal.getString("user_id"),UserCreintal.getString("picture_path"),UserCreintal.getString("gender"),UserCreintal.getString("user_name"));
+                    Intent i= new Intent(Login.this,MainActivity.class);
+                    startActivity(i);
+                    finish();
+                    //String url="https://tusharsk26.000webhostapp.com/TwikBust/login.php?email="+etEmail.getText().toString()+"&password="+etPassword.getText().toString() ;
+
+                   // new MyAsyncTaskgetNews().execute(url);
                 }
 
-                if (json.getString("msg").equalsIgnoreCase("Pass Login")) {
-                    JSONArray UserInfo=new JSONArray( json.getString("info"));
+                if (json.getString("msg").equalsIgnoreCase("cannot login")) {
+
+
+
+                    Toast.makeText(getApplicationContext(),"WRONG EMAIL OR PASSWORD",Toast.LENGTH_SHORT).show();
+                    /*JSONArray UserInfo=new JSONArray( json.getString("info"));
                     JSONObject UserCreintal= UserInfo.getJSONObject(0);
                     //Toast.makeText(getApplicationContext(),UserCreintal.getString("user_id"),Toast.LENGTH_LONG).show();
                     hideProgressDialog();
                     SaveSettings saveSettings= new SaveSettings(getApplicationContext());
                     saveSettings.SaveData(UserCreintal.getString("user_id"));
-                    finish(); //close this activity
+                    finish(); //close this activity*/
                 }
 
             } catch (Exception ex) {
