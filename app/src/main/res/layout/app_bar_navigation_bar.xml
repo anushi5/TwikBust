@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.anushi.twikbust.NavigationBar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/ChannelInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@color/whitebackground"
+            android:layoutDirection="rtl"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:background="@color/customeblue"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="5dp"
+                android:paddingTop="4dp">
+
+                <ImageView
+                    android:id="@+id/iv_channel_icon"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_alignBottom="@+id/txtflollower"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_account_circle_black_24dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="1dp">
+
+                    <TextView
+                        android:id="@+id/txtnamefollowers"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/bulogin"
+                        android:layout_toLeftOf="@+id/webView2"
+                        android:layout_toRightOf="@+id/bulogin"
+                        android:background="@color/customeblue"
+                        android:gravity="right"
+                        android:paddingBottom="1dp"
+                        android:text="User name"
+                        android:textAlignment="gravity"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/txtflollower"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/bulogin"
+                        android:layout_alignEnd="@+id/txtnamefollowers"
+                        android:layout_alignRight="@+id/txtnamefollowers"
+                        android:layout_below="@+id/txtnamefollowers"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toEndOf="@+id/bulogin"
+                        android:layout_toRightOf="@+id/bulogin"
+                        android:background="@color/customeblue"
+                        android:gravity="right"
+                        android:paddingBottom="5dp"
+                        android:text="subscribers"
+                        android:textAlignment="gravity"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/white"
+                        android:textSize="8dp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buFollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="0"
+                    android:background="@drawable/barcolor"
+                    android:drawableRight="@drawable/add"
+                    android:onClick="buFollowers"
+                    android:paddingRight="5dp"
+                    android:text="Follow"
+                    android:textColor="#fdfffa"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/ChannelInfo"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ChannelInfo"
+            tools:layout_editor_absoluteX="8dp" />
+
+    </LinearLayout>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>
