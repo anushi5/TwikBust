@@ -19,14 +19,16 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".Login" />
-        <activity android:name=".AddingStatus" />
+        <activity
+            android:name=".AddingStatus"
+            android:parentActivityName=".NavigationBar" />
         <activity android:name=".SignUp" />
+        <activity android:name=".Profile"
+            android:parentActivityName=".NavigationBar"/>
     </application>
 
 </manifest>
