@@ -16,21 +16,22 @@
     >
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="1"
+        android:background="@drawable/background"
         android:gravity="center"
         android:layoutDirection="rtl"
-        android:textAlignment="center"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:paddingRight="5dp"
-        android:background="@drawable/background"
-        android:paddingTop="2dp"
+        android:orientation="vertical"
         android:paddingBottom="1dp"
+        android:paddingRight="5dp"
+        android:paddingTop="2dp"
 
+        android:textAlignment="center"
         android:weightSum="1">
 
         <LinearLayout
@@ -70,6 +71,7 @@
                 android:layout_width="173dp"
                 android:layout_height="28dp"
                 android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/margin"
                 android:layout_toEndOf="@+id/bulogin"
                 android:layout_toLeftOf="@+id/webView"
                 android:layout_toRightOf="@+id/bulogin"
@@ -90,13 +92,13 @@
                 android:id="@+id/txt_tweet_date"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:layout_weight="0.29"
                 android:background="@color/white"
                 android:paddingEnd="1dp"
                 android:text="2015-12-11"
-                android:textAppearance="?android:attr/textAppearanceSmall"
 
-                android:textSize="10dp"
-                android:layout_weight="0.29" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="10dp" />
 
 
         </LinearLayout>
@@ -106,13 +108,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
             android:layout_toEndOf="@+id/bulogin"
             android:layout_toLeftOf="@+id/webView"
             android:layout_toRightOf="@+id/bulogin"
             android:background="@color/white"
             android:fontFamily="sans-serif-medium"
-            android:gravity="left"
 
+            android:gravity="left"
             android:paddingBottom="2dp"
             android:paddingRight="5dp"
             android:text="Love new twitter feathers, looking forword for new addation feather"
@@ -140,31 +143,31 @@
 
         <LinearLayout
 
-            android:paddingLeft="10dp"
-            android:paddingRight="3dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="5dp"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal"
-            android:background="@drawable/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4.25">
+            android:layout_weight="4.25"
+            android:background="@drawable/background"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="3dp"
+            android:paddingTop="3dp">
 
             <ImageView
 
+                android:id="@+id/iv_share"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/iv_share"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/ic_favorite_border_black_24dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
 
     </LinearLayout>
 </LinearLayout>

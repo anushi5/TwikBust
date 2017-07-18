@@ -189,7 +189,7 @@ public class Login extends AppCompatActivity {
                     /// adding data inside shared prefrences
                     SaveSettings saveSettings= new SaveSettings(getApplicationContext());
                     saveSettings.SaveData(UserCreintal.getString("user_id"),UserCreintal.getString("picture_path"),UserCreintal.getString("gender"),UserCreintal.getString("user_name"));
-                    Intent i= new Intent(Login.this,MynewRecyclerView.class);
+                    Intent i= new Intent(Login.this,NavigationBar.class);
                     startActivity(i);
                     finish();
                     //String url="https://tusharsk26.000webhostapp.com/TwikBust/login.php?email="+etEmail.getText().toString()+"&password="+etPassword.getText().toString() ;

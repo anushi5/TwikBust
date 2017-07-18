@@ -52,4 +52,12 @@ public class SaveSettings {
         else
             return true;
     }
+
+
+    void DeleteData()
+    {
+        SharedPreferences.Editor editor=ShredRef.edit();
+        editor.clear();
+        editor.commit();
+    }
 }
